@@ -1,0 +1,55 @@
+SHELL = @SHELL@
+srcdir = @srcdir@
+VPATH = @srcdir@
+CC = @CC@
+CFLAGS = @CFLAGS@
+LDFLAGS = @LDFLAGS@
+PREFIX = @prefix@
+.SUFFIXES:
+.SUFFIXES: .c .o
+
+PWCHECKD_SOCKET = @PWCHECKD_SOCKET@
+
+CFLAGS += -DPWCHECKD_SOCKET=${PWCHECKD_SOCKET}
+
+PKG_CONFIG = @PKG_CONFIG@
+
+EXEC = xscreensaver-pwcheck
+
+############ Things to change for different programs
+
+PROG = xscreensaver-pwcheck
+
+SRCS = xscreensaver-pwcheck.c
+
+OBJECTS = ${patsubst %.c, %.o, ${SRCS}} 
+
+############ Things to keep the same
+
+%.o:%.c
+	${CC} $(CFLAGS) -c -o $@ $<
+
+${PROG}: ${OBJECTS}
+	${CC} -o ${PROG} ${OBJECTS} ${LDFLAGS}
+
+install: ${PROG}
+	install -D ${PROG} ${DESTDIR}${PREFIX}/bin/${PROG}
+	
+
+clean:
+	rm -f *.o ${PROG}
+
+mrproper: clean
+	rm -f config.log Makefile config.status autom4te.cache
+
+depend:
+	makedepend -- ${CFLAGS} -- ${SRCS}
+
+Makefile: Makefile.in config.status
+	./config.status
+
+config.status: configure
+	$(srcdir)/configure 
+
+configure: configure.in
+	cd $(srcdir) && autoconf

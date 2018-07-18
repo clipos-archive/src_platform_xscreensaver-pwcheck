@@ -1,0 +1,13 @@
+# CLIP ChangeLog for app-clip/xscreensaver-pwcheck
+
+*xscreensaver-pwcheck-1.0 (27 Oct 2010)
+
+  27 Oct 2010; Benjamin Morin <clipos@ssi.gouv.fr>
+  +xscreensaver-pwcheck-1.1.ebuild:
+  Patch intended not to verify empty passwords (which lead to a pwcheckd timeout while waiting for something on its socket and an xscreensaver freeze while pwcheckd is waiting).
+
+*xscreensaver-pwcheck-1.0 (12 Oct 2007)
+
+  12 Oct 2007; Vincent Strubel <clipos@ssi.gouv.fr>
+  +xscreensaver-pwcheck-1.0.ebuild:
+  Initial import, brand new jailrequest lookalike :)
